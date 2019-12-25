@@ -22,15 +22,15 @@
 
 ## Table of Contents
 
-- [Getting Started](#Getting-Started)
-  - [Prerequisites](#Prerequisites)
-  - [Installation]()
-  - [Setting up the database]()
-- [Usage]()
-  - [Directory]()
-  - [User]()
-  - [Exercise(s)]()
-  - [Routine(s)]()
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Setting up the database](#setting-up-the-database)
+- [Usage](#usage)
+  - [Directory](#usage-directory)
+  - [User](#user)
+  - [Exercise(s)](#exercises)
+  - [Routine(s)](#routines)
 
 ## Getting Started
 
@@ -88,22 +88,22 @@ rails s
 ### Usage Directory
 
 - [User]()
-  - [[POST] Create a new User](#post-a-user)
-  - [[POST] Authenticate an existing User]()
-- [Exercise(s)]()
-  - [[GET] Get all Exercises]()
-  - [[GET] Get a specific Exercise]()
-  - [[POST] Add an existing Exercise to an existing Routine]()
-  - [[DELETE] Remove an existing Exercise from an existing Routine]()
- - [Routine(s)]()
-   - [[GET] Get all Routines]() 
-   - [[GET] Get a specific Routine]()
-   - [[GET] Get all scheduled Routines for a set date]()
-   - [[POST] Create a new Routine]()
-   - [[POST] Schedule a Routine]()
-   - [[PUT] Update an existing Routine]()
-   - [[DELETE] Delete an existing Routine]()
-   - [[DELETE] Unschedule a Routine]()
+  - [[POST] Create a new User](#post-create-a-new-user)
+  - [[POST] Authenticate an existing User](#post-authenticate-an-existing-user)
+- [Exercise(s)](#exercises)
+  - [[GET] Get all Exercises](#get-get-all-exercises)
+  - [[GET] Get a specific Exercise](#get-get-a-specific-exercise)
+  - [[POST] Add an existing Exercise to an existing Routine](#post-add-an-existing-exericise-to-an-existing-routine)
+  - [[DELETE] Remove an existing Exercise from an existing Routine](#delete-remove-an-existing-exercise-from-an-existing-routine)
+ - [Routine(s)](#routines)
+   - [[GET] Get all Routines](#get-get-all-routines) 
+   - [[GET] Get a specific Routine](#get-get-a-specific-routine)
+   - [[GET] Get all scheduled Routines for a set date](#get-get-all-scheduled-routines-for-a-set-date)
+   - [[POST] Create a new Routine](#post-create-a-new-routine)
+   - [[POST] Schedule a Routine](#post-schedule-a-routine)
+   - [[PUT] Update an existing Routine](#put-update-an-existing-routine)
+   - [[DELETE] Delete an existing Routine](#delete-delete-an-existing-routine)
+   - [[DELETE] Unschedule a Routine](#delete-unschedule-a-routine)
 
 ## User
 
