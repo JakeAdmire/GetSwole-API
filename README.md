@@ -1,309 +1,344 @@
-# GetSwoleAPI
+###### Top
 
-## Introduction
+<br />
+<p align="center">
+  <h1 align="center">GetSwole API</h1>
+  <p align="center">
+    Organize your fitness!
+    <br />
+    <br />
+    <b><a href="https://em-ja-palette-picker.herokuapp.com/">View Demo</a></b>
+  </p>
+</p>
+<div align="center">
 
-### This is a Backend application for GetSwole, an moblie application designed to help users schedule workout routines.
-[GetSwole Frontend Repository](https://github.com/JakeAdmire/JA-DC-EF-TA--GetSwole.git)
+[![Travis][travis-shield]][travis-url] 
+[![Heroku][heroku-shield]][heroku-url] 
+[![LinkedIn][linkedin-shield]][linkedin-url] 
+[![Gmail][gmail-shield]][gmail-url] 
+[![GitHub][github-shield]][github-url] 
+</div>
 
-## Background/About
-### This was the capstone project for Module 4 students at Turing School of Software and Design.  Teams of Backend and Frontend students were given 13 days to create a full-stack application from the ground up.  This project gave us further insight into how teams communicate and collaborate to make the development process flow smoothly.  
+## Table of Contents
 
-## Initial Setup
+- [Getting Started](#Getting-Started)
+  - [Prerequisites](#Prerequisites)
+  - [Installation]()
+  - [Setting up the database]()
+- [Usage]()
+  - [Directory]()
+  - [User]()
+  - [Exercise(s)]()
+  - [Routine(s)]()
 
-### If you would like to use the API in production mode, you can skip to the "How To Use" Section.
+## Getting Started
 
-### If you want to interact with the repo on your local machine:
-#### 1. Clone down the repo:
+> If you would like to use the API in production mode, you can skip to the [usage](#usage) section.
+
+### Prerequisites
+
+* npm
+```sh
+npm install npm@latest -g
 ```
-git clone git@github.com:timnallen/BE-GetSwole.git
-```
-#### 2. Install the dependencies in the Gemfile:
 
-```
-bundle install
-```
+---
 
-#### Set up the database:
+### Installation
 
-#### 1. Create and migrate:
-
+1. Clone the repo
+```sh
+git clone https://github.com/JakeAdmire/GetSwole-API
 ```
+2. Install Gem packages
+```sh
+cd GetSwole-API && bundle install
+```
+---
+
+### Setting Up The Database
+
+1. Create and migrate:
+```sh
 rake db:{create,migrate}
 ```
-
-#### 2. Import the exercises from the .csv file in the /lib directory:
-
-```
+2. Import the exercises from the .csv file in the /lib directory:
+```sh
 rake import:exercises
 ```
-
-#### 3. Seed the other db items in the seed file:
-
-```
+3. Seed the other db items in the seed file:
+```sh
 rake db:seed
 ```
-
-#### 4. Run the code in development mode:
-
-```
+4. Run the code in development mode:
+```sh
 rails s
 ```
+5. Open your browser and visit http://localhost:3000
 
-#### 5. Open your browser and visit http://localhost:3000
+## Usage
 
-## Using the API
+> If you would like to use the development environment and see the code, read through the [Getting Started](#Getting-Started) section.
 
-#### If you would like to use the development environment and see the code, read the walkthrough entitled: "Initial Setup", found above.
+*All endpoints adhere to the Fast JSON API standards*
 
-#### All endpoints adhere to the Fast JSON API standards
+[Base URL](https://warm-cove-89223.herokuapp.com/api/v1) - `https://warm-cove-89223.herokuapp.com/api/v1`
 
-### Base URL
+### Usage Directory
 
-```https://warm-cove-89223.herokuapp.com/api/v1```
+- [User]()
+  - [[POST] Create a new User](#post-a-user)
+  - [[POST] Authenticate an existing User]()
+- [Exercise(s)]()
+  - [[GET] Get all Exercises]()
+  - [[GET] Get a specific Exercise]()
+  - [[POST] Add an existing Exercise to an existing Routine]()
+  - [[DELETE] Remove an existing Exercise from an existing Routine]()
+ - [Routine(s)]()
+   - [[GET] Get all Routines]() 
+   - [[GET] Get a specific Routine]()
+   - [[GET] Get all scheduled Routines for a set date]()
+   - [[POST] Create a new Routine]()
+   - [[POST] Schedule a Routine]()
+   - [[PUT] Update an existing Routine]()
+   - [[DELETE] Delete an existing Routine]()
+   - [[DELETE] Unschedule a Routine]()
 
-### CREATE A User
+## User
 
-#### In order to create a User, you must have a request body with the following syntax:
+### [POST] Create a new `User`
 
-#### Request Body:
-```
+**Request:**
+`POST /users`
+
+**Body:**
+```json
 {
-  name: <STRING for NAME of User>,
-  email: <STRING for UNIQUE email>,
-  password: <STRING for PASSWORD>,
-  password_confirmation: <STRING for PASSWORD CONFIRMATION>
+	name: <STRING>,
+	email: <STRING>,
+	password: <STRING>,
+	password_confirmation: <STRING>
 }
 ```
-#### Note: You MUST have a body with a name, unique email and a password. The password MUST match the password_confirmation. In the response a randomly generated user api_key will be returned.
-
-#### Example:
-```
+Ex:
+```json
 {
-  name: "Jim",
-  email: 'email@email.com',
-  password: '1',
-  password_confirmation: '1'
+	name: "Jim",
+	email: 'email@email.com',
+	password: '1',
+	password_confirmation: '1'
 }
 ```
-#### A POST request must be made with the body and a user id in the query params to the following:
+> NOTE: The `password` **must** match the `password_confirmation`.
 
-```
-POST /users
-```
-
-### LOGIN/AUTHENTICATE a User
-
-#### In order to authenticate and get a User, you must have a request body with the following syntax:
-
-#### Request Body:
-```
+**Response:**
+```json
 {
-  email: <STRING for email>,
-  password: <STRING for PASSWORD>
+	api_key: <STRING>
 }
 ```
-#### Note: You MUST have a body with an email and a password. The email/password combo MUST match. In the response the user will be returned with their name and api_key.
 
-#### Example:
+---
+
+### [POST] Authenticate an existing `User`
+
+**Request:**
+`POST /login`
+
+**Body:**
+```json
+{
+	email: <STRING>,
+	password: <STRING>
+}
 ```
+Ex:
+```json
 {
   email: 'email@email.com',
   password: '1'
 }
 ```
+> NOTE: The `email` & `password` combo **must** match the existing login information.
 
-#### A POST request must be made with the body to the following:
-
-```
-POST /login
-```
-
-### GET All Exercises
-
-#### In order to get all exercises in the database, make a GET request to the following URI:
-
-```
-GET /exercises
-```
-
-#### This will return an array of the all the exercises in our database.
-
-
-### GET Exercise by ID
-
-#### In order to get a single exercise, you must have that exercise's id handy, and make a GET request to:
-
-
-```
-GET /exercises/<INSERT THE EXERCISE ID HERE>
-```
-```
-Example: /exercises/1
-```
-
-#### This will return a single exercise.
-
-### GET All Routines
-
-#### In order to get all routines in the database, make a GET request to the following URI:
-
-```
-GET /routines
-```
-
-#### This will return an array of the all the routines in our database, but each routine will also include all exercises that are a part of that routine with the specific reps, sets, weights, and/or durations specific to that routine for a particular exercise.
-
-### GET Routine by ID
-
-#### In order to get a single routine, you must have that routine's id handy, and make a GET request to:
-
-```
-GET /routines/<INSERT THE ROUTINE ID HERE>
-```
-```
-Example: /routines/1
-```
-
-#### This will return a single routine, with all included exercises.
-
-### CREATE a New Routine
-
-#### In order to create a routine, a request body must be made with the following syntax:
-
-#### Request Body:
-```
+**Response:**
+```json
 {
-  name: <ROUTINE NAME as a STRING>,
-  exercises: <ARRAY of EXERCISE IDS AS INTEGERS>
-}
-```
-#### Note: The name is REQUIRED, but the exercises are OPTIONAL. A routine can be made with or without a list of desired exercises to be included. The name however, MUST be in the request body.
-
-#### Example:
-```
-{
-  name: "Leg Day",
-  exercises: [1, 3, 56, 345]
+	name: <STRING>,
+	api_key: <STRING>
 }
 ```
 
-#### A POST request must be made with the body and a user id in the query params to the following:
+## Exercise(s)
 
-```
-POST /routines?user_id=<USER ID>&api_key=<USERS API KEY>
-```
-```
-Example: /routines?user_id=2&api_key=123456789
-```
+### [GET] Get all `Exercises`
 
-### UPDATE a Routine
+**Request:**
+`GET /exercises`
+> No request body is required.
 
-#### In order to update a routine, a request body must be made with the following syntax:
-
-#### Request Body:
+**Response:**
+```json
+[
+	{
+		name: <STRING>,
+		sets?: 
+		[
+			{
+				reps?: <ARRAY>,
+				duration?: <STRING>
+			},
+			...
+		],
+		duration?: <STRING>
+	},
+	...
+	
+]
 ```
+---
+
+### [GET] Get a specific `Exercise`
+
+**Request:**
+`GET /exercises/:id`
+> No request body is required.
+
+**Response:**
+```json
 {
-  name: <NEW name as a STRING>
+	name: <STRING>,
+	sets?: 
+	[
+		{
+			reps?: <ARRAY>,
+			duration?: <STRING>
+		},
+		...
+	],
+	duration?: <STRING>
 }
 ```
-#### Note: The name is REQUIRED.
+---
 
-#### Example:
-```
+### [POST] Add an existing `Exercise` to an existing `Routine`
+
+**Request:**
+`POST /exercise_routines`
+
+**Body:**
+```json
 {
-  name: "Leg Day 2.0"
+  exercise_id: <INTEGER>,
+  routine_id: <INTEGER>
 }
 ```
-
-#### A PUT request must be made with the body and the id of the the routine being updated to the following:
-
-```
-PUT /routines/:id
-```
-```
-Example: /routines/1
-```
-
-### ADD an Exercise to a Routine
-
-#### In order to add an exercise to a routine, a request body must be made with the following syntax:
-
-#### Request Body:
-```
-{
-  exercise_id: <EXERCISE ID INTEGER HERE>,
-  routine_id: <ROUTINE ID HERE>
-}
-```
-#### Note: Both the exercise id and the routine id is required to add the exercise to the routine
-
-#### Example Request Body:
-```
+Ex:
+```json
 {
   exercise_id: 3,
   routine_id: 5
 }
 ```
+---
 
-#### A POST Request must be made with the body to the following:
+### [DELETE] Remove an existing `Exercise` from an existing `Routine`
 
-```
-POST /exercise_routines
-```
+**Request:**
+`DELETE /exercise_routines/:id`
 
-### REMOVE an Exercise from a Routine
+## Routine(s)
 
-#### In order to remove an exercise from a routine, you must have the exercise_routine id handy and make a DELETE request to the following:
+### [GET] Get all `Routines`
 
-```
-DELETE /exercise_routines/:id
-```
-```
-Example: /exercise_routines/2
-```
+**Request:**
+`GET /routines`
+> No request body is required.
 
-### DELETE a Routine
-
-#### In order to delete a routine, you will need the routine id handy, and simply make a DELETE request to:
-
-```
-DELETE /routines/:id
-```
-
-```
-Example: /routines/1
+**Response:**
+```json
+[ 
+	{
+		name: <STRING>,
+		exercises: <ARRAY>
+	},
+	...
+]
 ```
 
-### GET All SCHEDULED Routines A User Has On A Date
+---
 
-#### In order to get all scheduled routines on a given date for a user, with the included exercises, make a GET request to:
+### [GET] Get a specific `Routine`
 
-```
-GET /my_routines?date=<DATE REQUESTED>&user_id=<SPECIFIC USER ID>&api_key=<USER SPECIFIC API KEY>
-```
-```
-Example: /my_routines?date=2019-05-22&user_id=1&api_key=0987654321
-```
+**Request:**
+`GET /routines/:id`
+> No request body is required.
 
-#### Note: both a date and an id MUST be included as query parameters in order to get a valid response. This will return an array of routines with the included exercises and relevant information.
-
-### SCHEDULE A Routine On A Day For A User
-
-#### In order to schedule a routine on a particular day for a user, a request body must be provided with the following syntax:
-
-
-#### Request Body:
-```
+**Response:**
+```json
 {
-  date: <DATE OF DESIRED SCHEDULING>,
-  routine_id: <ID OF ROUTINE BEING SCHEDULED>,
-  user_id: <ID OF USER SCHEDULING>,
-  api_key: <API KEY OF USER SCHEDULING>
+	name: <STRING>,
+	exercises: <ARRAY>
+}
+```
+---
+
+### [GET] Get all scheduled `Routines` for a set date
+
+**Request:**
+`GET /my_routines?date=<DATE>&user_id=<ID>&api_key=<KEY>`
+
+**Response:**
+```json
+[
+	{
+		name: <STRING>,
+		exercises: <ARRAY>
+	},
+	...
+]
+```
+---
+
+### [POST] Create a new `Routine`
+
+**Request:**
+`POST /routines?user_id=<USER_ID>&api_key=<USER_API_KEY>`
+> No request body is required.
+
+**Body:**
+```json
+{
+  name: <STRING>,
+  exercises?: <ARRAY>
+}
+```
+Ex:
+```json
+{
+  name: "Leg Day",
+  exercises?: [1, 3, 56, 345]
+}
+```
+---
+
+### [POST] Schedule a `Routine`
+
+**Request:**
+`POST /my_routines`
+
+**Body:**
+```json
+{
+  date: <STRING>,
+  routine_id: <INTEGER>,
+  user_id: <INTEGER>,
+  api_key: <STRING>
 }
 ```
 
-#### Example:
-```
+Ex:
+```json
 {
   date: "2019-05-22",
   routine_id: 2,
@@ -311,51 +346,76 @@ Example: /my_routines?date=2019-05-22&user_id=1&api_key=0987654321
   api_key: '123456789'
 }
 ```
+---
 
-#### A POST request must be made with the body to the following:
+### [PUT] Update an existing `Routine`
 
-```
-POST /my_routines
+**Request:**
+`PUT /routines/:id`
+
+**Body:**
+```json
+{
+  name: <STRING>
+}
 ```
 
-### UNSCHEDULE A Routine From A Day For A User
+Ex:
+```json
+{
+  name: "Leg Day 2.0"
+}
+```
+---
 
-#### In order to unschedule a routine on a particular day for a user, you will need the routine's id handy and the user's id, and make a DELETE request to:
+### [DELETE] Delete an existing `Routine`
 
-```
-DELETE /my_routines?routine_id=<ROUTINE ID>&user_id=<USER ID>&date=<DATE YYYY-MM-DD>&api_key=<USER API KEY>
-```
-```
-Example: /my_routines?routine_id=3&user_id=23&date=2019-05-29&api_key=12345678
-```
+**Request:**
+`DELETE /routines/:id`
+
+---
+
+### [DELETE] Unschedule a `Routine`
+
+**Request:**
+`DELETE /my_routines?routine_id=<ID>&user_id=<ID>&date=<DATE>&api_key=<KEY>`
 
 ## Running Tests
 
-#### The Application uses [RSPEC](https://rspec.info/) as a testing suite. To run the test suite, after completing the steps from "Initial Set Up" above, simply run:
+**GetSwole-API** uses [RSPEC](https://rspec.info/) as a testing suite. 
 
-```
+To run the test suite, after completing the steps from [Getting Started](#Getting-Started) , simply run:
+```sh
 rspec
 ```
 
-#### To check out test coverage after running the tests, you can run:
-
-```
+To view the coverage report (after running the test suite):
+```sh
 open coverage/index.html
 ```
-
-#### This will open a file in your browser that will show details about test coverage.
-
-## Contributors
-- [Tim Allen](https://github.com/timnallen)
-- [Eric Fitzsimons](https://github.com/ericfitzsimons451)
-- [Jake Admire](https://github.com/JakeAdmire)
-- [David Cisneros](https://github.com/developingdavid)
-
-## Schema Design
-
-## Tech Stack List
-- Ruby
-- Rails
-- Postgresql
+> This will open a file in your browser that will show details about test coverage.
 ---
-**[Back to Top](https://github.com/timnallen/BE-GetSwole/blob/master/README.md)**
+
+This project was assigned by David Whitaker and Will Mitchell
+
+_@ Turing School of Software & Design, Denver, CO._
+
+---
+
+**[BACK TO TOP](#top)**
+
+<!-- URL References  -->
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-0077b5.svg?style=for-the-badge&logo=linkedin
+[linkedin-url]: https://linkedin.com/in/jakeadmire
+
+[gmail-shield]: https://img.shields.io/badge/-Email-red.svg?style=for-the-badge&logo=gmail&logoColor=white
+[gmail-url]: mailto:jakeadmire1@gmail.com
+
+[github-shield]: https://img.shields.io/badge/dynamic/json?label=Follow&query=length&url=https://api.github.com/users/jakeadmire/followers&style=for-the-badge&logo=github
+[github-url]: https://github.com/JakeAdmire/
+
+[travis-shield]: https://img.shields.io/travis/criteriamor/Palette-Picker-API?label=travis-ci&logo=travis&style=for-the-badge
+[travis-url]: https://travis-ci.org/JakeAdmire/GetSwole
+
+[heroku-shield]: https://img.shields.io/badge/expo-deployed-lightblue?style=for-the-badge&logo=expo
+[heroku-url]: https://expo.io/@jakeadmire/getSwole
