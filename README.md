@@ -113,7 +113,7 @@ rails s
 `POST /users`
 
 **Body:**
-```json
+```javascript
 {
 	name: <STRING>,
 	email: <STRING>,
@@ -122,7 +122,7 @@ rails s
 }
 ```
 Ex:
-```json
+```javascript
 {
 	name: "Jim",
 	email: 'email@email.com',
@@ -133,7 +133,7 @@ Ex:
 > NOTE: The `password` **must** match the `password_confirmation`.
 
 **Response:**
-```json
+```javascript
 {
 	api_key: <STRING>
 }
@@ -147,14 +147,14 @@ Ex:
 `POST /login`
 
 **Body:**
-```json
+```javascript
 {
 	email: <STRING>,
 	password: <STRING>
 }
 ```
 Ex:
-```json
+```javascript
 {
   email: 'email@email.com',
   password: '1'
@@ -163,7 +163,7 @@ Ex:
 > NOTE: The `email` & `password` combo **must** match the existing login information.
 
 **Response:**
-```json
+```javascript
 {
 	name: <STRING>,
 	api_key: <STRING>
@@ -179,7 +179,7 @@ Ex:
 > No request body is required.
 
 **Response:**
-```json
+```javascript
 [
 	{
 		name: <STRING>,
@@ -206,7 +206,7 @@ Ex:
 > No request body is required.
 
 **Response:**
-```json
+```javascript
 {
 	name: <STRING>,
 	sets?: 
@@ -228,14 +228,14 @@ Ex:
 `POST /exercise_routines`
 
 **Body:**
-```json
+```javascript
 {
   exercise_id: <INTEGER>,
   routine_id: <INTEGER>
 }
 ```
 Ex:
-```json
+```javascript
 {
   exercise_id: 3,
   routine_id: 5
@@ -257,7 +257,7 @@ Ex:
 > No request body is required.
 
 **Response:**
-```json
+```javascript
 [ 
 	{
 		name: <STRING>,
@@ -276,7 +276,7 @@ Ex:
 > No request body is required.
 
 **Response:**
-```json
+```javascript
 {
 	name: <STRING>,
 	exercises: <ARRAY>
@@ -290,7 +290,7 @@ Ex:
 `GET /my_routines?date=<DATE>&user_id=<ID>&api_key=<KEY>`
 
 **Response:**
-```json
+```javascript
 [
 	{
 		name: <STRING>,
@@ -308,14 +308,14 @@ Ex:
 > No request body is required.
 
 **Body:**
-```json
+```javascript
 {
   name: <STRING>,
   exercises?: <ARRAY>
 }
 ```
 Ex:
-```json
+```javascript
 {
   name: "Leg Day",
   exercises?: [1, 3, 56, 345]
@@ -329,7 +329,7 @@ Ex:
 `POST /my_routines`
 
 **Body:**
-```json
+```javascript
 {
   date: <STRING>,
   routine_id: <INTEGER>,
@@ -339,7 +339,7 @@ Ex:
 ```
 
 Ex:
-```json
+```javascript
 {
   date: "2019-05-22",
   routine_id: 2,
@@ -355,14 +355,14 @@ Ex:
 `PUT /routines/:id`
 
 **Body:**
-```json
+```javascript
 {
   name: <STRING>
 }
 ```
 
 Ex:
-```json
+```javascript
 {
   name: "Leg Day 2.0"
 }
